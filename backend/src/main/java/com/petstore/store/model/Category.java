@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "categories")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String name;
 
     @OneToMany(mappedBy="category")
@@ -16,18 +17,18 @@ public class Category {
     public Category(){
     }
 
-    public Category(Long id, String name){
+    public Category(long id, String name){
         this.id = id;
         this.name = name;
     }
 
     // getters and setters
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

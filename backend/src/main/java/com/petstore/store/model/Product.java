@@ -3,6 +3,7 @@ package com.petstore.store.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,7 +11,6 @@ public class Product {
     private String imageUrl;
     private String name;
     private Double price;
-
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
