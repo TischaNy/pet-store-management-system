@@ -1,9 +1,6 @@
 package com.petstore.store.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Address {
@@ -14,6 +11,9 @@ public class Address {
     private String street;
     private int houseNumber;
     private String zipCode;
+    @OneToOne(mappedBy = "userAddress")
+    private Order order;
+
     public Address(){}
 
     public Address(String city, String street, int houseNumber, String zipCode){

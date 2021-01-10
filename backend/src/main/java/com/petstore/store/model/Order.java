@@ -1,11 +1,85 @@
 package com.petstore.store.model;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+@Entity
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private double amount;
     private Date orderDate;
-    private Address customerAddress;
-    private User customer;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
+
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address userAddress;
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    public Order(){
+
+    }
+
+    public Order(long id, Date orderDate, User user, Address userAddress){
+        this.id = id;
+        this.orderDate = orderDate;
+        this.user = user;
+        this.userAddress = userAddress;
+    }
+
+    public Double getTotalPrice(){
+        double total = 0D;
+        List<OrderItem> orderItems = getOrderItems();
+        for(OrderItem item : orderItems){
+            total += item.getTotalPrice();
+        }
+        return total;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Address getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(Address userAddress) {
+        this.userAddress = userAddress;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 }

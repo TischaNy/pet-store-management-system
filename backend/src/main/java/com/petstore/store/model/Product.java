@@ -10,7 +10,9 @@ public class Product {
     private String imageUrl;
     private String name;
     private Double price;
-    @OneToOne(mappedBy = "category")
+
+    @ManyToOne
+    @JoinColumn(name="category_id")
     private Category category;
 
     public Product(){
