@@ -7,24 +7,32 @@ import javax.persistence.*;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "code")
     private long code;
+    @Column(name = "imageUrl")
     private String imageUrl;
+    @Column(name = "name")
     private String name;
+    @Column(name = "price")
     private Double price;
     @ManyToOne
-    @JoinColumn(name="category_id")
+    @JoinColumn(name="categoryId")
     private Category category;
+    @ManyToOne
+    @JoinColumn(name="petId")
+    private Pet pet;
 
     public Product(){
 
     }
 
-    public Product(long code, String imageUrl, String name, Double price, Category category){
+    public Product(long code, String imageUrl, String name, Double price, Category category, Pet pet){
         this.code = code;
         this.imageUrl = imageUrl;
         this.name = name;
         this.price = price;
         this.category = category;
+        this.pet = pet;
     }
 
     // getters and setters
@@ -67,5 +75,13 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 }

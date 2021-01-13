@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 public interface UserDao extends CrudRepository<User, Long> {
-    User findAllByUserName(String userName);
+    User findByUserName(String userName);
 }

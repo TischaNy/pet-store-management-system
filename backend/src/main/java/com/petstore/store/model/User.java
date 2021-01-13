@@ -9,12 +9,19 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "userName")
     private String userName;
+    @Column(name = "firstName")
     private String firstName;
+    @Column(name = "lastName")
     private String lastName;
-    private String emailAddress;
+    @Column(name = "password")
     private String password;
+    @OneToOne
+    @JoinColumn(name = "cartId")
+    private Cart cart;
 
     @OneToMany(mappedBy="user")
     private List<Order> orders = new ArrayList<>();
@@ -22,13 +29,13 @@ public class User {
 
     }
 
-    public User(Long id, String userName, String firstName, String lastName, String emailAddress, String password){
+    public User(Long id, String userName, String firstName, String lastName, String password){
         this.id = id;
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.emailAddress = emailAddress;
         this.password = password;
+        this.cart = null;
     }
 
     // getters and setters
@@ -65,13 +72,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
 
     public String getPassword() {
         return password;
@@ -87,5 +87,14 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

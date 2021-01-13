@@ -7,10 +7,15 @@ import javax.persistence.*;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "city")
     private String city;
+    @Column(name = "street")
     private String street;
+    @Column(name = "houseNumber")
     private int houseNumber;
+    @Column(name = "zipCode")
     private String zipCode;
     @OneToOne(mappedBy = "userAddress")
     private Order order;

@@ -1,33 +1,33 @@
 package com.petstore.store.controllers;
 
-import com.petstore.store.dao.OrderDao;
-import com.petstore.store.model.Order;
+import com.petstore.store.dao.CartDao;
+import com.petstore.store.model.Cart;
+import com.petstore.store.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/order")
-public class OrderController {
-    private OrderDao orderDao;
+@RequestMapping("/cart")
+public class CartController {
+    private CartDao cartDao;
 
     @Autowired
-    public OrderController(OrderDao orderDao){
-        this.orderDao = orderDao;
+    public CartController(CartDao cartDao){
+        this.cartDao = cartDao;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Order> getAllOrders(){
-        return orderDao.findAll();
+    public Iterable<Cart> getAllCarts(){
+        return cartDao.findAll();
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public HttpStatus insertOrder(@RequestBody Order order){
-        orderDao.save(order);
+    public HttpStatus insertCart(@RequestBody Cart cart){
+        cartDao.save(cart);
         return HttpStatus.OK;
     }
-
 }

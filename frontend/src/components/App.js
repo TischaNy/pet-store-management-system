@@ -1,36 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../App.css';
-import Header from './Header'
-import MainContent from './MainContent'
-import Footer from './Footer'
+import Home from './Home';
+import Login from './Login';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 
-class App extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      path: 'http://localhost:3000/api/',
-      petData: []
-    }
+function App(){
 
+  const token = useState();
+  
+  if(!token){
+    return <Login />
   }
 
-  componentDidMount(){
-    fetch(this.state.path + 'pet')
-    .then(response => response.json()).then((petData) => {
-        this.setState({petData: petData});
-    }) 
-}
 
-  render(){
-    return (
-      <div className="App">
-        <Header />
-        <MainContent petData={this.state.petData}/>
-        <Footer />
-      </div>
-    );
-  }
+
+  return (
+    <Router>
+      <Route exact path={["/", "/home"]}>
+        <Home />
+      </Route>
+    <Switch>
+      <Route path="/login">
+        <Login />
+      </Route>
+    </Switch>
+  </Router>
+  );
+  
 }
 
 

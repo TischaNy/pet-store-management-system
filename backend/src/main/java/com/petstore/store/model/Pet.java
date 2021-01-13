@@ -5,23 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "categories")
-public class Category {
+public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
     @Column(name = "name")
     private String name;
+    @Column(name = "imageUrl")
+    private String imageUrl;
 
-    @OneToMany(mappedBy="category")
+    @OneToMany(mappedBy="pet")
     private List<Product> products = new ArrayList<>();
-    public Category(){
+    public Pet(){
     }
 
-    public Category(long id, String name){
+    public Pet(long id, String name, String imageUrl){
         this.id = id;
         this.name = name;
+        this.imageUrl = imageUrl;
     }
 
     // getters and setters
@@ -48,5 +50,13 @@ public class Category {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

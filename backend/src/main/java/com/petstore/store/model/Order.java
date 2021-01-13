@@ -10,15 +10,17 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+    @Column(name = "orderDate")
     private Date orderDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="userId")
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "addressId")
     private Address userAddress;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
