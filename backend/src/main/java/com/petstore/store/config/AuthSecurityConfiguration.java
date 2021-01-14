@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -32,9 +33,12 @@ public class AuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/authentication/**").anonymous() // allow new users to sign in or sign up
-              //  .anyRequest().authenticated()
-                .and(); // access so that users can authenticate
+                .antMatchers("/authentication/sign-in").anonymous() // allow new users to sign in or sign up
+                .anyRequest().authenticated()
+                .and() // access so that users can authenticate
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/api/authentication/sign-out"))
+                .and().httpBasic(); // enable basic authentication
     }
 
     @Bean
