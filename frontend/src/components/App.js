@@ -2,37 +2,30 @@ import React, { useState } from 'react'
 import '../App.css';
 import Home from './Home';
 import Login from './Login';
+import { ProtectedRoute } from './ProtectedRoute';
 
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 
-function App(){
 
-  const token = useState();
-  
-  if(!token){
-    return <Login />
+class App extends React.Component{
+  constructor(){
+    super();
   }
 
 
-
-  return (
-    <Router>
-      <Route exact path={["/", "/home"]}>
-        <Home />
-      </Route>
-    <Switch>
-      <Route path="/login">
-        <Login />
-      </Route>
-    </Switch>
-  </Router>
-  );
+  render(){
+    return (
+      <Router>
+          <ProtectedRoute exact path={["/", "/home"]} component={Home}  />
+          <Route path="/login" component={Login}  />
+      </Router>
+  
+    );
+  }
   
 }
 

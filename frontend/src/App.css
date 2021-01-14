@@ -4,6 +4,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Vibur&display=swap');
 
+html,
+body,
+#root{
+  height: 100%;
+}
+
 body{
   margin: auto;
   font-family: sans-serif;
@@ -13,6 +19,13 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Login Component */
+
+.login-section{
+  width: 100%;
+  background-color: pink;
 }
 
 /* Header */
