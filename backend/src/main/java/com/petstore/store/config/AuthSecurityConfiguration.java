@@ -34,6 +34,7 @@ public class AuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/authentication/sign-in").anonymous() // allow new users to sign in or sign up
+                .antMatchers("/authentication/sign-up").anonymous()
                 .anyRequest().authenticated()
                 .and() // access so that users can authenticate
                 .logout()

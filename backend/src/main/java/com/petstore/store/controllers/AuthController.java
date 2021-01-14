@@ -1,7 +1,9 @@
 package com.petstore.store.controllers;
 
+import com.petstore.store.dao.CartDao;
 import com.petstore.store.dao.UserDao;
 import com.petstore.store.model.AuthRequest;
+import com.petstore.store.model.Cart;
 import com.petstore.store.model.User;
 import com.petstore.store.service.AuthUserDetailsService;
 import org.apache.coyote.Response;
@@ -14,6 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,14 +28,39 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/authentication")
 public class AuthController {
-    @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
     private UserDao userDao;
+    private CartDao cartDao;
+
+    private BCryptPasswordEncoder encoder;
+
     private ApiController apiController;
 
-    public AuthController(){
+    @Autowired
+    public AuthController(AuthenticationManager authenticationManager, UserDao userDao, CartDao cartDao,BCryptPasswordEncoder encoder){
+        this.authenticationManager = authenticationManager;
+        this.userDao = userDao;
+        this.encoder = encoder;
+    }
 
+    // sign up
+    @RequestMapping(value = "/sign-up", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<ApiController> signUp(@RequestBody User user) throws Exception {
+        if(userDao.findByUserName(user.getUserName()) == null){
+            Cart cart = new Cart();
+            cartDao.save(cart);
+
+            user.setPassword(encoder.encode(user.getPassword()));
+            user.setCart(cart);
+
+            userDao.save(user);
+
+            apiController = new ApiController(user, "User created", HttpStatus.OK);
+        }else{
+            apiController = new ApiController("Username already taken", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(apiController, apiController.getStatusCode());
     }
 
     @RequestMapping(value = "/sign-in", method = RequestMethod.POST)
