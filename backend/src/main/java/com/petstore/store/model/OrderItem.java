@@ -27,7 +27,6 @@ public class OrderItem {
     private Cart cart;
 
     public OrderItem(){
-
     }
 
     public OrderItem(long id, Product product, double amount, double unitPrice, int quantity, Order order){

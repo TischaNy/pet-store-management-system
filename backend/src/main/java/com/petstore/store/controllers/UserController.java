@@ -1,7 +1,10 @@
 package com.petstore.store.controllers;
 
+import com.petstore.store.dao.AuthTokenDao;
 import com.petstore.store.dao.CartDao;
 import com.petstore.store.dao.UserDao;
+import com.petstore.store.model.AuthRequest;
+import com.petstore.store.model.AuthToken;
 import com.petstore.store.model.Cart;
 import com.petstore.store.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +21,15 @@ import java.util.List;
 public class UserController {
     private UserDao userDao;
     private CartDao cartDao;
+    private AuthTokenDao authTokenDao;
 
     private BCryptPasswordEncoder encoder;
 
     @Autowired
-    public UserController(UserDao userDao, CartDao cartDao, BCryptPasswordEncoder encoder){
+    public UserController(UserDao userDao, CartDao cartDao, AuthTokenDao authTokenDao, BCryptPasswordEncoder encoder){
         this.userDao = userDao;
         this.cartDao = cartDao;
+        this.authTokenDao = authTokenDao;
         this.encoder = encoder;
     }
 
@@ -38,11 +43,15 @@ public class UserController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public HttpStatus insertUser(@RequestBody User user){
+        AuthToken authToken = new AuthToken(user);
         Cart cart = new Cart();
+
         user.setPassword(encoder.encode(user.getPassword()));
         user.setCart(cart);
+
         cartDao.save(cart);
         userDao.save(user);
+        authTokenDao.save(authToken);
         return HttpStatus.OK;
     }
 

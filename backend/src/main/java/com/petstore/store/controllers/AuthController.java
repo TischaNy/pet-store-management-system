@@ -1,8 +1,10 @@
 package com.petstore.store.controllers;
 
+import com.petstore.store.dao.AuthTokenDao;
 import com.petstore.store.dao.CartDao;
 import com.petstore.store.dao.UserDao;
 import com.petstore.store.model.AuthRequest;
+import com.petstore.store.model.AuthToken;
 import com.petstore.store.model.Cart;
 import com.petstore.store.model.User;
 import com.petstore.store.service.AuthUserDetailsService;
@@ -31,19 +33,20 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     private UserDao userDao;
     private CartDao cartDao;
-
+    private AuthTokenDao authTokenDao;
     private BCryptPasswordEncoder encoder;
 
     private ApiController apiController;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, UserDao userDao, CartDao cartDao,BCryptPasswordEncoder encoder){
+    public AuthController(AuthenticationManager authenticationManager, UserDao userDao, CartDao cartDao, AuthTokenDao authTokenDao, BCryptPasswordEncoder encoder){
         this.authenticationManager = authenticationManager;
         this.userDao = userDao;
+        this.authTokenDao = authTokenDao;
         this.encoder = encoder;
     }
 
-    // sign up
+
     @RequestMapping(value = "/sign-up", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<ApiController> signUp(@RequestBody User user) throws Exception {
@@ -71,7 +74,7 @@ public class AuthController {
             Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
             if(auth.isAuthenticated()){
                 SecurityContextHolder.getContext().setAuthentication(auth);
-                apiController = new ApiController(userDao.findByUserName(authRequest.getUsername()), "succesfull request", HttpStatus.OK);
+                apiController = new ApiController(authTokenDao.findAuthTokenByUserUserName(authRequest.getUsername()), "succesfull request", HttpStatus.OK);
             }
         }
         catch(Exception e){
@@ -81,7 +84,6 @@ public class AuthController {
 
         return new ResponseEntity<>(apiController, apiController.getStatusCode());
     }
-
 
     @RequestMapping(value="/sign-out", method=RequestMethod.GET)
     public ResponseEntity<ApiController> signOut(HttpServletRequest request, HttpServletResponse response) {

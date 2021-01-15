@@ -1,8 +1,14 @@
 package com.petstore.store.model;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+import javax.crypto.spec.SecretKeySpec;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.security.Key;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -19,6 +25,7 @@ public class User {
     private String lastName;
     @Column(name = "password")
     private String password;
+
     @OneToOne
     @JoinColumn(name = "cartId")
     private Cart cart;
@@ -36,6 +43,7 @@ public class User {
         this.lastName = lastName;
         this.password = password;
         this.cart = null;
+
     }
 
     // getters and setters
@@ -89,7 +97,6 @@ public class User {
         this.orders = orders;
     }
 
-
     public Cart getCart() {
         return cart;
     }
@@ -97,4 +104,6 @@ public class User {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+
+
 }
