@@ -40,7 +40,7 @@ class MainContent extends React.Component{
                 <div className="second-section">
                     <h1>Pet Categories</h1>
                     <hr/>
-                    {this.renderPetComponents()}
+                    {/* {this.renderPetComponents()} */}
                 </div>
             </main>
         );

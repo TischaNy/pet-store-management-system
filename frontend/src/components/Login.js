@@ -25,7 +25,7 @@ class Login extends React.Component{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 'username': this.state.username,
@@ -41,8 +41,7 @@ class Login extends React.Component{
                 return res.json().then((res) => {
                     auth.logIn(res.data);
                     localStorage.setItem('auth', JSON.stringify(auth));
-                    console.log(localStorage.getItem('auth'));
-                    //this.props.history.push("/home");
+                    this.props.history.push("/home");
                 })
             }
         });

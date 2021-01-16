@@ -2,29 +2,38 @@ import React from 'react'
 import Header from './Header'
 import MainContent from './MainContent'
 import Footer from './Footer'
-
+import auth from '../auth/Auth'
+import {apiRequest} from '../helpers/apiRequest'
 
 class Home extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      path: 'http://localhost:3000/api/',
+      route: '/pet',
       petData: []
     }
 
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   componentDidMount(){
-    fetch(this.state.path + 'pet')
-    .then(response => response.json()).then((petData) => {
+    apiRequest(this.state.route, 'GET').then(response => response.json()).then((petData) => {
         this.setState({petData: petData});
-    }) 
+    });
+  }
+
+  handleSignOut(){
+    if(auth.isAuthenticated()){
+        auth.logOut();
+        this.props.history.push('/login');
+    }
 }
+
 
   render(){
     return (
       <div className="App">
-        <Header />
+        <Header handleSignOut={this.handleSignOut}/>
         <MainContent petData={this.state.petData}/>
         <Footer />
       </div>

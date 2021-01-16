@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 
-function Header(){
+function Header(props){
     return (
         <nav className="navbar">
             <div>
@@ -12,8 +12,8 @@ function Header(){
                 <li><a href="#">Assortiment</a></li>
             </ul>
             <ul className="nav-items-two">
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Sign Up</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a onClick={props.handleSignOut}>Sign out</a></li>
             </ul>
         </nav>
     );
