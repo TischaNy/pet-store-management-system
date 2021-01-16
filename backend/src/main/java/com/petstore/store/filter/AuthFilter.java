@@ -36,19 +36,23 @@ public class AuthFilter extends OncePerRequestFilter {
         if(authHeader != null){
             String tokenString = authHeader.substring("Bearer ".length());
             AuthToken token = authTokenDao.findByToken(tokenString);
+            System.out.println(tokenString);
             if(token != null){
-                if(token.getExpiryDate().before(new Date())){ // If token is expired, create new token
-                    token.refreshToken(token.getUser().getUserName());
+                System.out.println(tokenString);
+                System.out.println(token.getExpiryDate().getTime());
+
+                System.out.println(new Date().getTime());
+                if(token.getExpiryDate().after(new Date())){ // If token is not expired, create new token
+                    System.out.println("not expired");
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(token.getUser().getUserName());
+
+                    UsernamePasswordAuthenticationToken authToken
+                            = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+                    authToken.setDetails(
+                            new WebAuthenticationDetailsSource().buildDetails(httpServletRequest)
+                    );
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
-
-                UserDetails userDetails = userDetailsService.loadUserByUsername(token.getUser().getUserName());
-
-                UsernamePasswordAuthenticationToken authToken
-                        = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-                authToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(httpServletRequest)
-                );
-                SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);

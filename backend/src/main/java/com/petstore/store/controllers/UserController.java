@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
     private UserDao userDao;
@@ -33,26 +34,11 @@ public class UserController {
         this.encoder = encoder;
     }
 
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public Iterable<User> getAllUsers(){
          return userDao.findAll();
-    }
-
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    @ResponseBody
-    public HttpStatus insertUser(@RequestBody User user){
-        AuthToken authToken = new AuthToken(user);
-        Cart cart = new Cart();
-
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setCart(cart);
-
-        cartDao.save(cart);
-        userDao.save(user);
-        authTokenDao.save(authToken);
-        return HttpStatus.OK;
     }
 
 }

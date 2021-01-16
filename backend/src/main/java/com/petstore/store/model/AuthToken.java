@@ -11,7 +11,8 @@ import java.util.Map;
 @Entity
 @Table(name = "tokens")
 public class AuthToken {
-    public static final long TOKEN_VALIDITY = 60 * 60 * 1000;
+    //public static final long TOKEN_VALIDITY = 60 * 60 * 1000; // duration 1 hour
+    public static final long TOKEN_VALIDITY = 5 * 60 * 1000;
     public static final String TOKEN_KEY = "SECRET";
 
     @Id
@@ -19,7 +20,7 @@ public class AuthToken {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "token")
+    @Column(name = "token", length = 10000)
     private String token;
 
     @Column(name = "creationDate")
@@ -101,7 +102,7 @@ public class AuthToken {
         long nowInMs = System.currentTimeMillis();
         this.setCreationDate(new Date(nowInMs));
         this.setExpiryDate(new Date(nowInMs + TOKEN_VALIDITY));
-        this.setToken(generateToken(token));
+        this.setToken(generateToken(username));
     }
 
 

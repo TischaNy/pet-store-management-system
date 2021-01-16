@@ -26,8 +26,10 @@ import restfullResponse.ApiController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/authentication")
 public class AuthController {
     private AuthenticationManager authenticationManager;
@@ -35,13 +37,13 @@ public class AuthController {
     private CartDao cartDao;
     private AuthTokenDao authTokenDao;
     private BCryptPasswordEncoder encoder;
-
     private ApiController apiController;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, UserDao userDao, CartDao cartDao, AuthTokenDao authTokenDao, BCryptPasswordEncoder encoder){
         this.authenticationManager = authenticationManager;
         this.userDao = userDao;
+        this.cartDao = cartDao;
         this.authTokenDao = authTokenDao;
         this.encoder = encoder;
     }
@@ -51,20 +53,41 @@ public class AuthController {
     @ResponseBody
     public ResponseEntity<ApiController> signUp(@RequestBody User user) throws Exception {
         if(userDao.findByUserName(user.getUserName()) == null){
+            AuthToken authToken = new AuthToken(user);
             Cart cart = new Cart();
-            cartDao.save(cart);
+
 
             user.setPassword(encoder.encode(user.getPassword()));
             user.setCart(cart);
 
+            cartDao.save(cart);
             userDao.save(user);
+            authTokenDao.save(authToken);
 
-            apiController = new ApiController(user, "User created", HttpStatus.OK);
+            apiController = new ApiController(user, "New user created", HttpStatus.OK);
         }else{
             apiController = new ApiController("Username already taken", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(apiController, apiController.getStatusCode());
     }
+
+
+    @RequestMapping(value = "/token", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<ApiController> refreshToken(@RequestBody AuthToken token) throws Exception {
+        System.out.println("Expiry date token before refresh: " + token.getExpiryDate().getTime());
+        if(token.getExpiryDate().before(new Date())){ // If token is expired, create new token
+            token.refreshToken(token.getUser().getUserName());
+            System.out.println("Expiry date token after refresh: " + token.getExpiryDate().getTime());
+            authTokenDao.save(token);
+            apiController = new ApiController(token, "New token generated", HttpStatus.OK);
+        }else{
+            apiController = new ApiController(token, "Could not generate token", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(apiController, apiController.getStatusCode());
+    }
+
 
     @RequestMapping(value = "/sign-in", method = RequestMethod.POST)
     @ResponseBody

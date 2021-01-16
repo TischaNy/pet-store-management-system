@@ -14,9 +14,6 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy="category")
-    private List<Product> products = new ArrayList<>();
-
     public Category(){
     }
 
@@ -41,13 +38,5 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
     }
 }
