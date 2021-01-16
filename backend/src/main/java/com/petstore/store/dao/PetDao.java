@@ -5,5 +5,6 @@ import com.petstore.store.model.Pet;
 import org.springframework.data.repository.CrudRepository;
 
 public interface PetDao extends CrudRepository<Pet, Long> {
-    Pet findAllById(long id);
+    Pet findById(long id);
+    Pet findByName(String name);
 }

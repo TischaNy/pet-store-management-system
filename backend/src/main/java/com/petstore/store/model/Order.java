@@ -23,8 +23,6 @@ public class Order {
     @JoinColumn(name = "addressId")
     private Address userAddress;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    private List<OrderItem> orderItems = new ArrayList<>();
 
     public Order(){
 
@@ -35,15 +33,6 @@ public class Order {
         this.orderDate = orderDate;
         this.user = user;
         this.userAddress = userAddress;
-    }
-
-    public Double getTotalPrice(){
-        double total = 0D;
-        List<OrderItem> orderItems = getOrderItems();
-        for(OrderItem item : orderItems){
-            total += item.getTotalPrice();
-        }
-        return total;
     }
 
     public long getId() {
@@ -78,11 +67,5 @@ public class Order {
         this.userAddress = userAddress;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
 }

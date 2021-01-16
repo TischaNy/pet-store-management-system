@@ -11,8 +11,7 @@ import java.util.Map;
 @Entity
 @Table(name = "tokens")
 public class AuthToken {
-    //public static final long TOKEN_VALIDITY = 60 * 60 * 1000; // duration 1 hour
-    public static final long TOKEN_VALIDITY = 5 * 60 * 1000;
+    public static final long TOKEN_VALIDITY = 60 * 60 * 1000; // duration 1 hour
     public static final String TOKEN_KEY = "SECRET";
 
     @Id

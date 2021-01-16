@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/orderitem")
+@RequestMapping("/order-item")
 public class OrderItemController {
     private OrderItemDao orderItemDao;
 

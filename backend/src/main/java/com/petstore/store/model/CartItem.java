@@ -1,11 +1,10 @@
 package com.petstore.store.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
-@Table(name = "order_items")
-public class OrderItem {
+@Table(name = "cart_items")
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -13,27 +12,25 @@ public class OrderItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productId")
     private Product product;
-    @Column(name = "amount")
-    private double amount;
     @Column(name = "quantity")
     private int quantity;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderId")
-    private Order order;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cartId")
     private Cart cart;
 
-    public OrderItem(){
+    public CartItem(){
+
     }
 
-    public OrderItem(long id, Product product, double amount, int quantity, Order order){
+    public CartItem(long id, Product product, int quantity, Cart cart){
         this.id = id;
         this.product = product;
-        this.amount = amount;
         this.quantity = quantity;
-        this.order = order;
+        this.cart = cart;
     }
+
+
 
     public long getId() {
         return id;
@@ -51,9 +48,6 @@ public class OrderItem {
         this.product = product;
     }
 
-    public double getAmount() {
-        return amount;
-    }
 
     public int getQuantity() {
         return quantity;
@@ -63,11 +57,11 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public Order getOrder() {
-        return order;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }
