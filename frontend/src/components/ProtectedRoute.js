@@ -7,6 +7,8 @@ if(JSON.parse(localStorage.getItem('auth')) != undefined){ // if user is authent
   auth.setAuth(JSON.parse(localStorage.getItem('auth')));
 }
 
+console.log(auth);
+
 export const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
       auth.isAuthenticated() === true

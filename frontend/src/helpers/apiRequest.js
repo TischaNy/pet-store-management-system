@@ -7,7 +7,7 @@ export const apiRequest = async (route, method, data) => {
 
 
     if(auth.getToken().expiryDate <= now){
-        let authResponse = await fetch(url + '/authentication/token', {
+        await fetch(url + '/authentication/token', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

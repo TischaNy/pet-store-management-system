@@ -1,7 +1,8 @@
-import { render } from '@testing-library/react';
 import React from 'react';
-import auth from '../auth/Auth'
 import { Redirect } from 'react-router-dom';
+import auth from '../auth/Auth'
+
+
 
 class Login extends React.Component{
     constructor(props){
@@ -41,14 +42,20 @@ class Login extends React.Component{
                 return res.json().then((res) => {
                     auth.logIn(res.data);
                     localStorage.setItem('auth', JSON.stringify(auth));
-                    this.props.history.push("/home");
+                    window.location.reload();
                 })
             }
         });
+
         event.preventDefault();
+    
+
     }
 
     render(){
+        if(auth.isAuthenticated()){
+            return <Redirect to="/home" />
+        }
         return (
             <form method="POST" className="styled-form" onSubmit={this.handleSubmit}>
                 <h1>Account Login</h1>

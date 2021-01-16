@@ -16,6 +16,7 @@ class MainContent extends React.Component{
 
  
     renderPetComponents() {
+
         return this.props.petData.map(pet => {
             return <Pet key={pet.id} pet={pet} />
         })
@@ -40,7 +41,7 @@ class MainContent extends React.Component{
                 <div className="second-section">
                     <h1>Pet Categories</h1>
                     <hr/>
-                    {/* {this.renderPetComponents()} */}
+                    {this.renderPetComponents()}
                 </div>
             </main>
         );

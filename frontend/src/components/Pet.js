@@ -1,6 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import {convertToCurrency} from './helpers';
+import {convertToCurrency} from '../helpers/convertToCurrency';
 import {PropTypes} from 'react'
 
 class Pet extends React.Component{
@@ -21,7 +21,7 @@ class Pet extends React.Component{
         return (
             <div className="card-overlay">
                 <div className="second-section-card" style={{}}>
-                    <img src={require("../img/" + this.props.pet.imageUrl).default} width="64px"/>
+                    {/* <img src={require("../img/" + this.props.pet.imageUrl).default} width="64px"/> */}
                     <p>{this.props.pet.name}</p>
                 </div>
             </div>
