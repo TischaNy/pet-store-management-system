@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from './Header'
-import MainContent from './MainContent'
+import Main from './Main'
 import Footer from './Footer'
 import Catalog from './Catalog'
 import auth from '../auth/Auth'
@@ -26,7 +26,7 @@ class Home extends React.Component{
   render(){
     return (
       <div className="App">
-        <MainContent petData={this.state.petData} />
+        <Main petData={this.state.petData} />
       </div>
     );
   }

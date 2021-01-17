@@ -4,7 +4,7 @@ import Pet from './Pet'
 import banner from '../img/pets-banner.png'
 
 
-class MainContent extends React.Component{
+class Main extends React.Component{
     constructor(props){
         super();
         this.state =  {
@@ -32,10 +32,7 @@ class MainContent extends React.Component{
                     <div className="first-section-two">
                         <h1>Give your pet a <span>healthy treat</span></h1>
                         <p>We offer pet food, supplies and more at affordable prices.</p>
-                        <button className="search-button">Search in catalog</button>
-                    </div>
-                    <div className="first-section-three">
-                        <Cart />
+                        <a href="/catalog"><button className="search-button">Search in catalog</button></a>
                     </div>
                 </div>
                 <div className="second-section">
@@ -49,4 +46,4 @@ class MainContent extends React.Component{
 }
 
 
-export default MainContent;
+export default Main;

@@ -1,8 +1,15 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import auth from '../auth/Auth'
+
+
 function Header(props){
-    console.log(auth.isAuthenticated());
+    let calculatedTotal = props.cartTotal.reduce((sum, val) => {
+        return sum + val.quantity;
+    }, 0);
+
+    console.log(calculatedTotal);
+
     return (
         <nav className="navbar">
             <div>
@@ -17,6 +24,7 @@ function Header(props){
                     <ul className="nav-items-two">
                         <li><a href="#">Profile</a></li>
                         <li><a onClick={props.handleSignOut}>Sign out</a></li>
+                        <li><a href="/cart">Cart (<span id="cartTotal">{calculatedTotal}</span>)</a></li>
                     </ul>
                 </div>
             }
@@ -26,3 +34,4 @@ function Header(props){
 }
 
 export default Header;
+

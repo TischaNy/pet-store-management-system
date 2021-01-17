@@ -2,7 +2,7 @@ import React from 'react';
 import {convertToCurrency} from '../helpers/convertToCurrency';
 
 
-class Opleiding extends React.Component{
+class Product extends React.Component{
     constructor(){
         super();
         this.state = {
@@ -10,16 +10,33 @@ class Opleiding extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+
+        
     handleSubmit(event){
-    
+        let key = this.props.product.code;
+        this.props.addProductToCart(key);
+
+    }
+
+    componentDidMount(){
+        console.log(this.props.product.pet);
     }
 
     render(){
         return (
             <tr>
                 <td>Image</td>
-                <td>Product</td>
-{/*                
+                <td>
+                    <p>{this.props.product.name}</p>
+                    <p>{this.props.product.price}</p>
+                    <p>{this.props.product.category.name}</p>
+                    <p>{this.props.product.pet.name}</p>
+                
+                    <input id={`product-${this.props.product.code}`} type="number" min="1" max="10" defaultValue="1" />
+                    <button onClick={this.handleSubmit}>Add to cart</button>
+                </td>
+
+{/*              
                 <td>{convertToCurrency(this.props.opleiding.prijs)}</td> */}
                 {/* <td>
                     <form onSubmit={this.handleSubmit}>
@@ -32,4 +49,4 @@ class Opleiding extends React.Component{
     }
 }
 
-export default Opleiding;
+export default Product;

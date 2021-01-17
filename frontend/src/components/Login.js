@@ -57,15 +57,20 @@ class Login extends React.Component{
             return <Redirect to="/home" />
         }
         return (
-            <form method="POST" className="styled-form" onSubmit={this.handleSubmit}>
-                <h1>Account Login</h1>
-                <label>Username</label><br/>
-                <input type="text" name="username" value={this.state.username} placeholder="Username" onChange={this.handleChange} /><br/>
-                <label>Password</label><br/>
-                <input type="password" name="password" value={this.state.password} placeholder="Password" onChange={this.handleChange}/><br/>
-                <button type="submit">Log In</button>
-                {this.state.errorMessage && <p>{this.state.errorMessage}</p>}
-            </form>
+            <div>
+                <form method="POST" className="styled-form" onSubmit={this.handleSubmit}>
+                    <h1>Account Login</h1>
+                    <label>Username</label><br/>
+                    <input type="text" name="username" value={this.state.username} placeholder="Username" onChange={this.handleChange} /><br/>
+                    <label>Password</label><br/>
+                    <input type="password" name="password" value={this.state.password} placeholder="Password" onChange={this.handleChange}/><br/>
+                    <button type="submit">Log In</button>
+                    {this.state.errorMessage && <p>{this.state.errorMessage}</p>}
+                </form>
+                <p>Not an account? <a href="/register">Click to register here</a></p>
+            </div>
+
+     
         );
     }
 
