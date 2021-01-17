@@ -13,10 +13,12 @@ class Cart extends React.Component{
     constructor(props){
         super();
         this.state = {
-            checkOut: false
+            checkOut: false,
+            errorMessage: ''
         }
 
         this.renderCartItems = this.renderCartItems.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount(){
@@ -29,6 +31,17 @@ class Cart extends React.Component{
         });
     }
 
+    handleClick(){
+        if(this.props.cartItems.length == 0){
+            this.setState({
+                errorMessage: "There are no items in your cart. Add to proceed."
+            })
+            return;
+        }
+
+        this.props.history.push("/checkout/address");
+    }
+
 
     render(){
         return (
@@ -39,7 +52,8 @@ class Cart extends React.Component{
                 <table>
                     {this.renderCartItems()}
                 </table>
-                <a href="/checkout/address"><button>Checkout</button></a>
+                <button onClick={this.handleClick}>Checkout</button>
+                <p>{this.state.errorMessage}</p>
             </div>
         );
     }

@@ -23,12 +23,13 @@ class Order extends React.Component{
             return;
         }
 
+        apiRequest('/cart-item/cart?id=' + cartItems[0].cart.id, 'DELETE').then((response) => response.json()).then((result) => {
+            console.log(result);
+        }) 
 
         apiRequest('/order/create', 'POST', order).then((response) => response.json()).then((result) => {
             cartItems.forEach(item => {
-
                 const cartItem = {
-                    cart: item.cart,
                     order: result.data,
                     product: item.product,
                     quantity: item.quantity,
@@ -40,7 +41,6 @@ class Order extends React.Component{
                     this.setState(prevState => ({
                         orderItems: [...prevState.orderItems, result.data]
                     }));
-                    console.log(result.data);
                 });
             });
         });
@@ -49,11 +49,12 @@ class Order extends React.Component{
     
     renderOrderItems(){
         return this.state.orderItems.map(orderItem => {
+            console.log(orderItem);
             return (
                 <tr>
                     <td>{orderItem.product.name}</td>
-                    <td>{orderItem.order.quantity}</td>
-                    <td>{orderItem.order.amount}</td>
+                    <td>{orderItem.quantity}</td>
+                    <td>{orderItem.amount}</td>
                 </tr>
             );
         })

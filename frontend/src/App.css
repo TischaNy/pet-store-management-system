@@ -23,15 +23,61 @@ body{
 
 /* Login Component */
 
-.login-section{
+.login-section, .register-section{
+  background-color: #EEF5CE;
+  padding-top:  80px;
   width: 100%;
-  background-color: pink;
+  height: 80%;
+}
+
+.styled-login-form, .register-styled-form{
+  padding: 20px;
+  background-color: #fff;
+  margin: 0 auto;
+  width: 500px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.styled-login-form h1, .register-styled-form h1{
+  padding-bottom: 20px;
+}
+
+.styled-login-form input, .register-styled-form input{
+  padding: 5px 10px;
+  margin: 10px;
+}
+
+.styled-login-form button, .register-styled-form button{
+  margin-top: 20px;
+  background-color: #006D6C; 
+  border: none;
+  color: white;
+  padding: 5px 25px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+
+.styled-login-form p{
+  margin-top: 10px;
+}
+
+/* Register */
+
+.register-error-messages{
+  padding-top: 20px;
 }
 
 /* Header */
 
 .navbar{
     width: 100%;
+    height: 10%;
     display: flex;
     background: #bada55;
     transition: all 0.7s ease-in-out;
@@ -81,20 +127,24 @@ body{
     cursor: pointer;
 }
 
+
 nav h1{
   margin: 0;
 }
 
-main{
-
+.App{
+  height: 80%;
 }
 
  /* MainContent */
+main{
+  background-color: #EEF5CE;
+  height: 100%;
+  width: 100%;
+}
 
 .first-section{   
-    background-color: #EEF5CE;
     width: 100%;
-    height: 300px;
     padding: 1.5%;
 }
 
@@ -214,6 +264,6 @@ footer{
   text-align: center;
   background-color: #006D6C;
   color: #fff;
-  height: 70px;
+  height: 10%;
   padding: 20px 0;
 }

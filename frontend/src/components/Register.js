@@ -81,8 +81,8 @@ class Register extends React.Component{
         }
 
         return (
-            <div>
-                <form method="POST" className="styled-form" onSubmit={this.handleSubmit}>
+            <div className="register-section">
+                <form method="POST" className="register-styled-form" onSubmit={this.handleSubmit}>
                     <h1>Register an Account</h1>
                     <label>Firstname</label><br/>
                     <input type="text" name="firstName" required value={this.state.firstName} placeholder="Enter first name" onChange={this.handleChange} /><br/>
@@ -96,10 +96,11 @@ class Register extends React.Component{
                     <label>Password</label><br/>
                     <input type="password" name="password" required value={this.state.password} placeholder="Enter password" onChange={this.handleChange} /><br/>
                     <button type="Submit">Register</button>
+                    <div className="register-error-messages">
+                        {this.showMessages()}
+                    </div>
                 </form>
-                <div>
-                    {this.showMessages()}
-                </div>
+        
             </div>
         );
     }

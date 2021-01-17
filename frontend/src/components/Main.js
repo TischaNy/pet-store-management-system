@@ -27,18 +27,13 @@ class Main extends React.Component{
             <main>
                 <div className="first-section">
                     <div className="first-section-one">
-                    <img src={banner}/>     
+                        <img src={banner}/>     
                     </div>
                     <div className="first-section-two">
                         <h1>Give your pet a <span>healthy treat</span></h1>
                         <p>We offer pet food, supplies and more at affordable prices.</p>
                         <a href="/catalog"><button className="search-button">Search in catalog</button></a>
                     </div>
-                </div>
-                <div className="second-section">
-                    <h1>Pet Categories</h1>
-                    <hr/>
-                    {this.renderPetComponents()}
                 </div>
             </main>
         );
