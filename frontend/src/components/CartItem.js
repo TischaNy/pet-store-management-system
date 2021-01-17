@@ -26,13 +26,13 @@ class CartItem extends React.Component{
     render(){
         return (
             <tr>
-                <td>Image URL</td>
+                <td><img src={require(`../img/api/products/no-image.png`).default} width="100px" /></td>
                 <td>{this.props.cartItem.product.name}</td>
                 <td>{this.props.cartItem.quantity}</td>
-                <td>{this.props.cartItem.product.price}</td>
+                <td>{convertToCurrency(this.props.cartItem.product.price)}</td>
                 <td><input type="number" name={this.props.cartItem.id} defaultValue={this.props.cartItem.quantity} min="1" max="10" onChange={this.handleChange}/></td>
-                <td>{parseFloat(this.props.cartItem.product.price)*parseInt(this.props.cartItem.quantity)}</td>
-                <td><button onClick={this.handleClick}>Remove item</button></td>
+                <td>{convertToCurrency(parseFloat(this.props.cartItem.product.price)*parseInt(this.props.cartItem.quantity))}</td>
+                <td><button className="remove-button" onClick={this.handleClick}>Remove item</button></td>
             </tr>
         );
     }

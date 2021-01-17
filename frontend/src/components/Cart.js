@@ -49,10 +49,21 @@ class Cart extends React.Component{
                 <h1>Shopping Cart</h1>
                 <p>Items in shopping cart</p>
 
-                <table>
-                    {this.renderCartItems()}
+                <table className="table-cart">
+                    <thead>
+                        <td></td>
+                        <td>Name</td>
+                        <td>Quantity</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Amount</td>
+                        <td></td>
+                    </thead>
+                    <tbody>
+                        {this.renderCartItems()}
+                    </tbody>
                 </table>
-                <button onClick={this.handleClick}>Checkout</button>
+                <button className="checkout-button" onClick={this.handleClick}>Checkout</button>
                 <p>{this.state.errorMessage}</p>
             </div>
         );

@@ -4,7 +4,6 @@ import Home from './Home'
 import Catalog from './Catalog'
 import Cart from './Cart'
 import Header from './Header'
-import Footer from './Footer'
 import Login from './Login'
 import Register from './Register'
 import auth from '../auth/Auth'
@@ -77,7 +76,6 @@ class App extends React.Component{
                 <Route path="/register" component={Register}  />
                 <Route path='*' exact={true} render={() => (<Redirect to="/home" />)} />
               </Switch>
-            <Footer />
         </Router>
        
       );

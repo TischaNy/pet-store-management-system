@@ -93,30 +93,28 @@ class Catalog extends React.Component{
 
     render(){
         return (
-            <div className="App">
-                    <div>Catalog</div>
-                    <div>
-                        <table>
-                            <tr>
-                                <td onChange={this.handleFilter}>
-                                    <div>
-                                        <input type="radio" id="allPets" name="petFilter" value="" defaultChecked />
-                                        <label htmlFor="allPets">All</label><br/>
-                                    </div>
-                                    {this.renderPetComponents()}
-                                </td>
-                                <td onChange={this.handleFilter}>
-                                    <div>
-                                        <input type="radio" id="allCategories" name="categoryFilter" value="" defaultChecked/>
-                                        <label htmlFor="allCategories">All</label><br/>
-                                    </div>
-                                    {this.renderCategoryComponents()}
-                                </td>
-                                <td>
-                                    <button onClick={this.handleSubmit} >Filter</button>
-                                </td>
-                            </tr>
-                        </table>
+            <div className="App catalog">
+                 <div className="catalog-filter">
+                    <h1>Catalog</h1>
+                    <table>
+                        <tr>
+                            <td onChange={this.handleFilter}>
+                                <div>
+                                    <input type="radio" id="allPets" name="petFilter" value="" defaultChecked />
+                                    <label htmlFor="allPets">All</label><br/>
+                                </div>
+                                {this.renderPetComponents()}
+                            </td>
+                            <td onChange={this.handleFilter}>
+                                <div>
+                                    <input type="radio" id="allCategories" name="categoryFilter" value="" defaultChecked/>
+                                    <label htmlFor="allCategories">All</label><br/>
+                                </div>
+                                {this.renderCategoryComponents()}
+                            </td>      
+                        </tr>
+                    </table>
+                    <button onClick={this.handleSubmit} >Filter</button>
                     </div>
                     <table className="styled-table">
                         <thead>

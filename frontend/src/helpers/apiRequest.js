@@ -2,7 +2,7 @@ import auth from '../auth/Auth'
 
 
 export const apiRequest = async (route, method, data) => {
-    let url = "http://localhost:3000/api"
+    let url = "http://localhost:3001/api"
     let now = new Date().getTime();
 
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import {apiRequest} from '../helpers/apiRequest'
+import {convertToCurrency} from '../helpers/convertToCurrency'
 
 let grandTotal = 0;
 
@@ -54,7 +55,7 @@ class Order extends React.Component{
                 <tr>
                     <td>{orderItem.product.name}</td>
                     <td>{orderItem.quantity}</td>
-                    <td>{orderItem.amount}</td>
+                    <td>{convertToCurrency(orderItem.amount)}</td>
                 </tr>
             );
         })
@@ -62,13 +63,22 @@ class Order extends React.Component{
 
     render(){
         return (
-            <div>
+            <div className="order-info">
                 <h1>Order Information</h1>
                 <p>Your order has been proceeded</p>
                 <table>
-                    {this.renderOrderItems()}
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Quantity</td>
+                            <td>Amount</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderOrderItems()}
+                    </tbody>
                 </table>
-                <p>Grand total: {grandTotal}</p>
+                <p className="order-total">Grand total: {convertToCurrency(grandTotal)}</p>
             </div>
         )
     }

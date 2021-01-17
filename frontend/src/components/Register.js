@@ -33,7 +33,7 @@ class Register extends React.Component{
         event.preventDefault();
 
  
-        fetch('http://localhost:3000/api/authentication/sign-up', {
+        fetch('http://localhost:3001/api/authentication/sign-up', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

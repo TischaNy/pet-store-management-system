@@ -21,13 +21,14 @@ body{
     box-sizing: border-box;
 }
 
+
 /* Login Component */
 
 .login-section, .register-section{
   background-color: #EEF5CE;
   padding-top:  80px;
   width: 100%;
-  height: 80%;
+  height: 90%;
 }
 
 .styled-login-form, .register-styled-form{
@@ -107,6 +108,29 @@ body{
     font-family: 'Poppins', sans-serif;
 }
 
+.checkout, .order-info{
+  font-family: 'Poppins';
+  background-color: #fff;
+  padding: 20px 0 20px 25px;
+}
+.order-info table{
+  padding-top: 20px;
+}
+
+.order-total{
+  font-weight: 800;
+  padding-top: 20px;
+}
+
+
+.order-info table td{
+  width: 300px;
+}
+
+.order-total{
+  font-weight: 800;
+}
+
 .logo{
     float: left;
     padding: 18px 1.4em;
@@ -133,16 +157,107 @@ nav h1{
 }
 
 .App{
-  height: 80%;
+  height: 90%;
 }
 
  /* MainContent */
+
 main{
   background-color: #EEF5CE;
   height: 100%;
   width: 100%;
 }
 
+
+/* Catalog  */
+.catalog{
+  overflow: auto;
+}
+
+.catalog-filter{
+  background-color: #EEF5CE;
+  padding: 20px;
+}
+
+.catalog-filter h1{
+  padding-bottom: 20px;
+}
+
+.catalog-filter label{
+  margin-left: 10px;
+  display: inline-block;
+}
+
+.catalog-filter input{
+  margin-left: 10px;
+  display: inline-block;
+}
+
+.catalog-filter button{
+  margin-top: 20px;
+  background-color: #006D6C; 
+  border: none;
+  color: white;
+  padding: 5px 25px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Product */
+.product-button{
+  margin-top: 20px;
+  margin-left: 5px;
+  background-color: #006D6C; 
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.checkout-button, .remove-button{
+  margin-top: 20px;
+  margin-left: 5px;
+  background-color: #006D6C; 
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.styled-cart{
+  overflow: auto;
+}
+.table-cart{
+  margin-top: 20px;
+}
+
+.table-cart thead{
+  font-weight: 800;
+}
+
+.table-cart td{
+  width: 100px;
+  text-align: center;
+  vertical-align: center;
+}
+
+.product-info{
+  margin-left: 10px;
+}
 .first-section{   
     width: 100%;
     padding: 1.5%;
@@ -240,8 +355,7 @@ main{
 .styled-cart{
   font-family: 'Poppins';
   background-color: #fff;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  padding: 20px 25px;
+  padding: 20px 0 20px 25px;
   border-radius: 5px;
 }
 
@@ -258,9 +372,17 @@ main{
   padding: 5px 10px;
 }
 
+.checkout input{
+  padding: 5px 10px;
+  margin: 10px;
+}
+
 /* Footer */
 
 footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   text-align: center;
   background-color: #006D6C;
   color: #fff;
