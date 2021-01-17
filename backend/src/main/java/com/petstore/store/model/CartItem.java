@@ -1,5 +1,7 @@
 package com.petstore.store.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,12 +13,14 @@ public class CartItem {
     private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productId")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Product product;
     @Column(name = "quantity")
     private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cartId")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Cart cart;
 
     public CartItem(){

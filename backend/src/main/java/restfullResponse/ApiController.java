@@ -4,9 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import javax.persistence.Entity;
+import java.util.List;
 
 public class ApiController<T> {
     private T data;
+    private List<String> messages;
     private String message;
     private HttpStatus statusCode;
 
@@ -21,6 +23,11 @@ public class ApiController<T> {
 
     public ApiController(String message, HttpStatus statusCode){
         this.message = message;
+        this.statusCode = statusCode;
+    }
+
+    public ApiController(List<String> messages, HttpStatus statusCode){
+        this.messages = messages;
         this.statusCode = statusCode;
     }
 
@@ -46,5 +53,13 @@ public class ApiController<T> {
 
     public void setStatusCode(HttpStatus statusCode) {
         this.statusCode = statusCode;
+    }
+
+    public List<String> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 }

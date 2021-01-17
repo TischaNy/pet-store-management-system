@@ -19,7 +19,7 @@ public class Order {
     @JoinColumn(name="userId")
     private User user;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "addressId")
     private Address userAddress;
 

@@ -26,7 +26,9 @@ import restfullResponse.ApiController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -52,10 +54,15 @@ public class AuthController {
     @RequestMapping(value = "/sign-up", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<ApiController> signUp(@RequestBody User user) throws Exception {
+        List<String> errorMessages = validateString(user);
+        if(errorMessages.size() != 0){
+            System.out.println("Errorrrrrrrrr");
+            apiController = new ApiController( errorMessages, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(apiController, apiController.getStatusCode());
+        }
         if(userDao.findByUserName(user.getUserName()) == null){
             AuthToken authToken = new AuthToken(user);
             Cart cart = new Cart();
-
 
             user.setPassword(encoder.encode(user.getPassword()));
             user.setCart(cart);
@@ -64,11 +71,39 @@ public class AuthController {
             userDao.save(user);
             authTokenDao.save(authToken);
 
-            apiController = new ApiController(user, "New user created", HttpStatus.OK);
+            apiController = new ApiController(authTokenDao.findAuthTokenByUserUserName(user.getUserName()), "New user created", HttpStatus.OK);
         }else{
             apiController = new ApiController("Username already taken", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(apiController, apiController.getStatusCode());
+    }
+
+    public List<String> validateString(User user){
+        int MIN_LENGTH = 2;
+        List<String> errorMessages = new ArrayList<>();
+        if(user.getUserName().length() < MIN_LENGTH){
+            errorMessages.add("Username must be min 2 characters long.");
+        }
+        if(user.getFirstName().length() < MIN_LENGTH){
+            errorMessages.add("Firstname must be min 2 characters long.");
+        }
+        if(user.getLastName().length() < MIN_LENGTH){
+            errorMessages.add("Lastname must be min 2 characters long.");
+        }
+        if(user.getPassword().length() < MIN_LENGTH + 6){
+            errorMessages.add("Password must be min 8 characters long.");
+        }
+
+        if(!user.getUserName().chars().allMatch(Character::isLetter)){
+            errorMessages.add("Username must only contain letters");
+        }
+        if(!user.getFirstName().chars().allMatch(Character::isLetter)){
+            errorMessages.add("Firstname must only contain letters.");
+        }
+        if(!user.getLastName().chars().allMatch(Character::isLetter)){
+            errorMessages.add("Lastname must only contain letters.");
+        }
+        return errorMessages;
     }
 
 

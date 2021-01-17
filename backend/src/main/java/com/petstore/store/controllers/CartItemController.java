@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/cart-item")
@@ -25,6 +27,22 @@ public class CartItemController {
     public Iterable<CartItem> getAllCartItems(@RequestParam String cart){
         return cartItemDao.findAllByCart_Id(Long.parseLong(cart));
     }
+
+
+
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    @ResponseBody
+    public CartItem deleteCartItem(@RequestParam String id){
+         return cartItemDao.deleteById(Long.parseLong(id));
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public HttpStatus updateCartItem(@RequestBody CartItem cartItem){
+        cartItemDao.save(cartItem);
+        return HttpStatus.OK;
+    }
+
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
