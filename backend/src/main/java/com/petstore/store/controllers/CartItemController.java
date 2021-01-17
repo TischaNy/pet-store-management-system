@@ -6,8 +6,10 @@ import com.petstore.store.model.CartItem;
 import com.petstore.store.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import restfullResponse.ApiController;
 
 import javax.transaction.Transactional;
 
@@ -16,6 +18,7 @@ import javax.transaction.Transactional;
 @RequestMapping("/cart-item")
 public class CartItemController {
     private CartItemDao cartItemDao;
+    private ApiController apiController;
 
     @Autowired
     public CartItemController(CartItemDao cartItemDao){
@@ -34,6 +37,20 @@ public class CartItemController {
     @ResponseBody
     public CartItem deleteCartItem(@RequestParam String id){
          return cartItemDao.deleteById(Long.parseLong(id));
+    }
+
+    @RequestMapping(value = "/cart", method = RequestMethod.DELETE)
+    @ResponseBody
+    @Transactional
+    public ResponseEntity<ApiController> deleteAllCartItems(@RequestParam String id){
+
+        try{
+            cartItemDao.deleteAllByCart_Id(Long.parseLong(id));
+            apiController = new ApiController("Deleted items", HttpStatus.OK);
+        }catch(Exception e){
+            apiController = new ApiController(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(apiController, apiController.getStatusCode());
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)

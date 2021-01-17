@@ -29,7 +29,7 @@ public class OrderItemController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<ApiController> insertOrder(@RequestBody OrderItem orderItem){
+    public ResponseEntity<ApiController> insertOrderItem(@RequestBody OrderItem orderItem){
         try{
             OrderItem savedOrderItem =  orderItemDao.save(orderItem);
             apiController = new ApiController(savedOrderItem, "Order Iteù created", HttpStatus.OK);

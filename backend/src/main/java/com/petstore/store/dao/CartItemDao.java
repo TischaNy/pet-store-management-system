@@ -10,4 +10,5 @@ public interface CartItemDao extends CrudRepository<CartItem, Long> {
     CartItem findById(long id);
     List<CartItem> findAllByCart_Id(long id);
     CartItem deleteById(long id);
+    void deleteAllByCart_Id(long id);
 }

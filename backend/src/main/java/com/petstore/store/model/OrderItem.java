@@ -20,9 +20,7 @@ public class OrderItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderId")
     private Order order;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cartId")
-    private Cart cart;
+
 
     public OrderItem(){
     }
@@ -70,4 +68,5 @@ public class OrderItem {
     public void setOrder(Order order) {
         this.order = order;
     }
+
 }
